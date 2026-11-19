@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en-NZ"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Python Practice Lab</title>
+<style>:root{--dark:#0B3C6F;--tint:#E6F2FB;--accent1:#D6336C;--accent2:#1976D2}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;font-size:18px;line-height:1.55;color:#1a1a1a;background:#fff}
+header{background:var(--tint);border-bottom:4px solid var(--dark)}
+header .wrap{display:flex;align-items:center;gap:20px;padding:18px 20px}
+header img.logo{height:58px}
+header h1{margin:0;font-size:32px;color:var(--dark)}
+header p{margin:2px 0 0;color:#404040;font-size:16px}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+main{padding:10px 0 40px}
+h2{background:var(--tint);color:var(--dark);font-size:22px;padding:8px 14px;border-left:6px solid var(--dark);border-radius:4px;margin:34px 0 14px;display:flex;align-items:center;gap:10px}
+h2 svg{width:22px;height:22px;flex:none}
+h3{color:var(--dark);font-size:19px;margin:22px 0 8px}
+a{color:var(--accent2)}
+strong{color:var(--dark)}
+code{font-family:Consolas,"Courier New",monospace;font-size:16px;background:#f3f3f3;padding:1px 5px;border-radius:3px}
+pre{background:#f6f8fa;border:1px solid #d0d7de;border-left:5px solid var(--accent2);border-radius:6px;padding:12px 16px;overflow-x:auto}
+pre code{background:none;padding:0;font-size:17px;line-height:1.5}
+table{border-collapse:collapse;margin:12px 0;width:100%}
+th,td{border:1px solid #bbb;padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--tint);color:var(--dark)}
+img.pic{max-width:100%;height:auto;display:block;margin:14px auto;border-radius:6px}
+.box{border-radius:8px;padding:12px 18px;margin:18px 0;border:2px solid var(--dark)}
+.box .box-title{font-weight:bold;color:var(--dark);margin:0 0 6px;font-size:19px}
+.box.remember,.box.tip,.box.note{border:none;border-left:7px solid var(--dark);background:var(--tint)}
+.box.challenge{border:2px dashed var(--accent1)}
+.box.challenge .box-title{color:var(--accent1)}
+.box.important,.box.warning{border:none;border-left:7px solid var(--accent1);background:#fff4f4}
+.box.aims{border:2px solid var(--dark)}
+a.button{display:inline-block;background:var(--dark);color:#fff;text-decoration:none;font-weight:bold;padding:12px 22px;border-radius:8px;font-size:19px}
+a.button:hover{opacity:.9}
+footer{border-top:1px solid #ccc;color:#555;font-size:14px;padding:14px 0 30px}
+.empty{text-align:center;padding:80px 20px;color:#404040}
+.empty h2{display:block;background:none;border:none;font-size:28px}
+details.hint{background:#FFF8E1;border:2px solid #F2C94C;border-radius:8px;margin:14px 0;padding:0 16px}
+details.hint summary{cursor:pointer;font-weight:bold;color:#7A5B00;padding:10px 0;list-style:none}
+details.hint summary::-webkit-details-marker{display:none}
+details.hint summary:before{content:"\1F4A1  "}
+details.hint[open]{padding-bottom:8px}
+details.hint[open] summary{border-bottom:1px dashed #F2C94C;margin-bottom:8px}
+
+body{background:var(--tint)}
+header{background:linear-gradient(120deg,var(--dark) 0%,var(--accent2) 100%);border:none;color:#fff;position:relative;overflow:hidden}
+header:after{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+header .wrap{padding:26px 20px 22px}
+header img.logo{background:#fff;border-radius:10px;padding:6px;height:66px}
+header h1{color:#fff;font-size:38px}
+header p{color:#e8eef7;font-size:17px}
+.progress{max-width:860px;margin:0 auto;padding:0 20px 18px;position:relative;z-index:1}
+.progress .track{background:rgba(255,255,255,.25);border-radius:20px;height:16px;overflow:hidden}
+.progress .fill{background:#FFD54F;height:100%;width:0;border-radius:20px;transition:width .5s}
+.progress .label{color:#fff;font-size:15px;margin-top:5px;font-weight:bold}
+main{padding-top:18px}
+section.card{background:#fff;border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.08);padding:4px 24px 18px;margin:0 0 22px;border-top:6px solid var(--accent2)}
+section.card.activity{border-top-color:var(--dark)}
+section.card.done{border-top-color:#2E7D32}
+section.card > h2{background:none;border:none;padding:0;margin:18px 0 10px;font-size:25px}
+section.card > h2 svg{width:24px;height:24px;background:var(--tint);padding:9px;border-radius:50%;box-sizing:content-box}
+button.done{margin-top:12px;background:#fff;border:2px solid #2E7D32;color:#2E7D32;font-weight:bold;font-size:17px;padding:8px 18px;border-radius:22px;cursor:pointer}
+button.done:hover{background:#EAF6EC}
+section.done button.done{background:#2E7D32;color:#fff}
+.intro{font-size:20px}
+header{background:linear-gradient(120deg,var(--dark) 0%,var(--accent2) 55%,var(--accent1) 100%)}
+header:before{content:"";position:absolute;left:0;right:0;bottom:0;height:7px;background:repeating-linear-gradient(90deg,#FFD54F 0 40px,#FF7043 40px 80px,#4DD0E1 80px 120px,#81C784 120px 160px,#BA68C8 160px 200px)}
+header h1:after{content:" \1F680";display:inline-block;animation:bob 2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px) rotate(8deg)}}
+.progress .fill{background:repeating-linear-gradient(45deg,#FFD54F 0 12px,#FFB300 12px 24px)}
+.progress .label:after{content:" \2B50"}
+section.card{transition:transform .15s,box-shadow .15s}
+section.card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.14)}
+section.card:nth-of-type(5n+1){border-top-color:#FF7043}
+section.card:nth-of-type(5n+2){border-top-color:#26C6DA}
+section.card:nth-of-type(5n+3){border-top-color:#AB47BC}
+section.card:nth-of-type(5n+4){border-top-color:#FFCA28}
+section.card:nth-of-type(5n+5){border-top-color:#66BB6A}
+section.card.done{border-top-color:#2E7D32!important;background:linear-gradient(#F1FAF2,#fff 90px)}
+section.card > h2 .em{font-size:30px;margin-right:2px;display:inline-block}
+section.card:hover > h2 .em{animation:wiggle .5s}
+@keyframes wiggle{25%{transform:rotate(-18deg) scale(1.2)}75%{transform:rotate(18deg) scale(1.2)}}
+.box{box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.box.remember,.box.tip{background:linear-gradient(90deg,var(--tint),#fff)}
+.box.remember .box-title:before{content:"\1F9E0  "}
+.box.tip .box-title:before{content:"\1F50D  "}
+.box.aims .box-title:before{content:"\1F3AF  "}
+.box.challenge{background:#FFF8E1;border-color:#FF7043}
+.box.challenge .box-title:before{content:"\1F525  "}
+.box.challenge .box-title{color:#E64A19}
+button.done{transition:transform .15s}
+button.done:hover{transform:scale(1.07) rotate(-1deg)}
+section.done button.done{animation:pop .4s}
+@keyframes pop{50%{transform:scale(1.25)}}
+.runner{box-shadow:0 3px 0 var(--accent2);transition:transform .15s}
+.runner:focus-within{transform:scale(1.01);border-color:#FF7043;box-shadow:0 3px 0 #FF7043}
+.runner button.run{font-size:17px;padding:8px 20px;box-shadow:0 3px 0 #027a4e;transition:transform .1s}
+.runner button.run:hover{transform:translateY(-2px)}
+.runner button.run:active{transform:translateY(2px);box-shadow:none}
+.runner pre.out.ok{border-left:6px solid #4CAF50}
+.runner pre.out.bad{border-left:6px solid #FF5252}
+.runner .praise{margin-left:auto;font-weight:bold;color:#2E7D32;animation:pop .5s}
+pre.example{background:#F3F0FF;border-left-color:#AB47BC}
+th{background:linear-gradient(90deg,var(--tint),#fff)}
+.stars{position:fixed;font-size:28px;z-index:99;pointer-events:none;animation:rise 1.2s ease-out forwards}
+@keyframes rise{to{transform:translateY(-90px) scale(1.6);opacity:0}}
+.party{position:fixed;top:-20px;width:12px;height:18px;z-index:99;animation:fall 2.6s linear forwards;border-radius:3px}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg)}}
+.cheer{position:fixed;left:50%;top:30%;transform:translateX(-50%);background:#fff;border:4px solid #2E7D32;border-radius:16px;padding:20px 30px;font-size:24px;font-weight:bold;color:#2E7D32;z-index:100;box-shadow:0 6px 30px rgba(0,0,0,.2);text-align:center}
+
+.runner{margin:14px 0;border:2px solid var(--accent2);border-radius:10px;overflow:hidden;background:#fff}
+.runner textarea{display:block;width:100%;border:none;resize:vertical;font-family:Consolas,"Courier New",monospace;font-size:17px;line-height:1.5;padding:12px 16px;background:#f6f8fa;color:#1a1a1a;tab-size:4;outline:none;min-height:60px}
+.runner .bar{display:flex;gap:10px;align-items:center;padding:8px 12px;background:var(--tint);border-top:1px solid #d0d7de}
+.runner button{font-size:16px;font-weight:bold;border-radius:8px;padding:7px 16px;cursor:pointer;border:2px solid var(--dark)}
+.runner button.run{background:#04AA6D;border-color:#04AA6D;color:#fff}
+.runner button.reset{background:#fff;color:var(--dark)}
+.runner .status{font-size:14px;color:#555}
+.runner pre.out{margin:0;border:none;border-radius:0;background:#1E1E1E;color:#E8E8E8;font-family:Consolas,"Courier New",monospace;font-size:17px;padding:12px 16px;min-height:44px;white-space:pre-wrap;display:none}
+.runner pre.out.show{display:block}
+.runner pre.out .err{color:#FF8A80}
+.runner pre.out .hint{color:#FFD54F}
+pre.example{user-select:none;-webkit-user-select:none}
+pre.example:before{content:"Read this, then type it in the box below";display:block;font:bold 13px Arial,sans-serif;color:var(--accent2);margin-bottom:6px;letter-spacing:.3px;text-transform:uppercase}
+.runner textarea::placeholder{color:#8a8f98;font-style:italic}
+</style></head>
+<body data-nopaste="1"><header><div class="wrap"><img class="logo" src="../school-logo.png" alt="City Impact Church School logo">
+<div><h1>Python Practice Lab</h1><p>Year 8 Computing</p></div></div><div class="progress"><div class="track"><div class="fill"></div></div><div class="label"></div></div></header>
+<main class="wrap"><div class="intro"><p>Today you'll write real Python, right here on this page. Read the grey code, type it into the white box underneath, and click <strong>Run</strong> to see what happens. Copy and paste is switched off, so your fingers do the learning. Write your predictions and answers on your printed sheet, and tick each activity when you finish it.</p>
+<div class="box aims">
+<p class="box-title">We are learning to</p>
+<ul>
+<li>use Python to work things out with + - * and /</li>
+<li>say whether a value is an integer, a float or a string</li>
+<li>make a decision with IF and ELSE, and repeat code with a FOR loop</li>
+</ul>
+</div>
+</div><section class="card"><h2><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" color="#0B3C6F" aria-hidden="true" style="color:#0B3C6F" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></path></svg>Refresher: what you already know</h2>
+<p>It's been a couple of weeks since you met Python, so read this quick refresher before you start. You don't type anything in this part.</p>
+<p><strong>Python is a programming language.</strong> That's a set of words and rules we use to give a computer instructions. HTML describes how a web page looks. Python tells the computer what to <em>do</em>: work out sums, make decisions and repeat jobs.</p>
+<p><strong><code>print()</code> shows something on the screen.</strong> Whatever you put inside the brackets is what appears. Words go inside quotation marks.</p>
+<pre class="example"><code class="language-python">print(&quot;Kia ora!&quot;)
+</code></pre>
+<p><strong>A variable is a labelled box that stores a value.</strong> You give the box a name, then put a value in it. The <code>=</code> sign means "store this value in the box". It does <em>not</em> mean "is equal to".</p>
+<pre class="example"><code class="language-python">score = 10
+name = &quot;Mia&quot;
+print(name, &quot;has&quot;, score, &quot;points&quot;)
+</code></pre>
+<p><strong>Symbols do the work.</strong> Maths symbols make Python calculate. Comparison symbols ask a true or false question.</p>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+</code> <code>-</code> <code>*</code> <code>/</code></td>
+<td>add, subtract, multiply, divide</td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>is bigger than</td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>is smaller than</td>
+</tr>
+<tr>
+<td><code>==</code></td>
+<td>is the same as (two equals signs ask a question)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>IF makes a decision.</strong> Python checks a condition, which is a true or false question. If it's true, the indented lines under <code>if</code> run. If it's false, the lines under <code>else</code> run.</p>
+<pre class="example"><code class="language-python">if score &gt; 5:
+    print(&quot;Nice score!&quot;)
+else:
+    print(&quot;Keep trying&quot;)
+</code></pre>
+<p><strong>FOR repeats code.</strong> The indented lines run once for each time round the loop.</p>
+<pre class="example"><code class="language-python">for i in range(3):
+    print(&quot;Hello&quot;)
+</code></pre>
+<div class="box remember">
+<p class="box-title">Three things to remember</p>
+<ul>
+<li>One equals sign <code>=</code> <strong>stores</strong> a value. Two equals signs <code>==</code> <strong>compare</strong> two values.</li>
+<li>A colon <code>:</code> ends the <code>if</code>, <code>else</code> and <code>for</code> lines, and the lines under them are indented.</li>
+<li>Python is fussy about spelling, brackets and quotation marks. An error message is a clue, so read it and fix it.</li>
+</ul>
+</div>
+<div class="box tip">
+<p class="box-title">Quick check</p>
+<p>Before you start, ask yourself:
+- What is a variable?
+- What is the difference between <code>=</code> and <code>==</code>?
+- How many times does <code>for i in range(3):</code> repeat its lines?</p>
+</div>
+<details class="hint">
+<summary>Need a nudge?</summary>
+<p>Think about a labelled box for the first question. For the second, think about storing versus asking. For the third, count the numbers <code>range(3)</code> gives: it starts at 0.</p>
+</details>
+</section><section class="card activity"><h2><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 576 512" color="#0B3C6F" aria-hidden="true" style="color:#0B3C6F" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M64 64C28.7 64 0 92.7 0 128L0 384c0 35.3 28.7 64 64 64l448 0c35.3 0 64-28.7 64-64l0-256c0-35.3-28.7-64-64-64L64 64zm16 64l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM64 240c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zm16 80l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zm80-176c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zm16 80l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM160 336c0-8.8 7.2-16 16-16l224 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-224 0c-8.8 0-16-7.2-16-16l0-32zM272 128l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM256 240c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zM368 128l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM352 240c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zM464 128l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM448 240c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zm16 80l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16z"></path></svg>Activity 1: Your first run</h2>
+<p>Grey code like this is for reading. Type it into the white box underneath, then click <strong>Run</strong>.</p>
+<pre class="example"><code class="language-python">print(&quot;Kia ora, Python!&quot;)
+</code></pre>
+<div class="runner"><textarea spellcheck="false" autocomplete="off" autocapitalize="off" rows="3" placeholder="Type the line above here, then click Run" aria-label="Python code box"></textarea><div class="bar"><button class="run">&#9654; Run</button><button class="reset">Reset</button><span class="status"></span></div><pre class="out" aria-live="polite"></pre></div>
+<p>Then change the message to say hello to someone in your class, and run it again. <strong>Reset</strong> empties the box so you can start again.</p>
+<details class="hint">
+<summary>Run button not working?</summary>
+<p>Use the W3Schools editor instead. It opens in a new tab:</p>
+<p><a class="button" href="https://www.w3schools.com/python/trypython.asp?filename=demo_default" target="_blank" rel="noopener">Open the Python editor</a></p>
+<p><img class="pic" src="Y08-python-practice-editor.png" alt="The editor. Type your code in the left box, click Run at the top, and the output appears in the right box."></p>
+</details>
+<div class="box remember">
+<p class="box-title">Remember</p>
+<p>Python is fussy. Type the code exactly: brackets, quotation marks, colons and spaces all matter. An error message is a clue, not a disaster. Read it, fix it and run again.</p>
+</div>
+<button class="done">Mark as done</button></section><section class="card"><h2><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 576 512" color="#0B3C6F" aria-hidden="true" style="color:#0B3C6F" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M64 64C28.7 64 0 92.7 0 128L0 384c0 35.3 28.7 64 64 64l448 0c35.3 0 64-28.7 64-64l0-256c0-35.3-28.7-64-64-64L64 64zm16 64l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM64 240c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zm16 80l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zm80-176c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zm16 80l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM160 336c0-8.8 7.2-16 16-16l224 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-224 0c-8.8 0-16-7.2-16-16l0-32zM272 128l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM256 240c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zM368 128l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM352 240c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zM464 128l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM448 240c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zm16 80l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16z"></path></svg>Part A: Python as a calculator</h2>
+<p>Python uses an <strong>operator</strong> (a symbol that does a job) for each kind of sum.</p>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Job</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+</code></td>
+<td>add</td>
+<td><code>7 + 3</code> gives 10</td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>subtract</td>
+<td><code>7 - 3</code> gives 4</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>multiply</td>
+<td><code>7 * 3</code> gives 21</td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>divide</td>
+<td><code>8 / 2</code> gives 4.0</td>
+</tr>
+</tbody>
+</table>
+</section><section class="card activity"><h2><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 576 512" color="#0B3C6F" aria-hidden="true" style="color:#0B3C6F" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M234.7 42.7L197 56.8c-3 1.1-5 4-5 7.2s2 6.1 5 7.2l37.7 14.1L248.8 123c1.1 3 4 5 7.2 5s6.1-2 7.2-5l14.1-37.7L315 71.2c3-1.1 5-4 5-7.2s-2-6.1-5-7.2L277.3 42.7 263.2 5c-1.1-3-4-5-7.2-5s-6.1 2-7.2 5L234.7 42.7zM46.1 395.4c-18.7 18.7-18.7 49.1 0 67.9l34.6 34.6c18.7 18.7 49.1 18.7 67.9 0L529.9 116.5c18.7-18.7 18.7-49.1 0-67.9L495.3 14.1c-18.7-18.7-49.1-18.7-67.9 0L46.1 395.4zM484.6 82.6l-105 105-23.3-23.3 105-105 23.3 23.3zM7.5 117.2C3 118.9 0 123.2 0 128s3 9.1 7.5 10.8L64 160l21.2 56.5c1.7 4.5 6 7.5 10.8 7.5s9.1-3 10.8-7.5L128 160l56.5-21.2c4.5-1.7 7.5-6 7.5-10.8s-3-9.1-7.5-10.8L128 96 106.8 39.5C105.1 35 100.8 32 96 32s-9.1 3-10.8 7.5L64 96 7.5 117.2zm352 256c-4.5 1.7-7.5 6-7.5 10.8s3 9.1 7.5 10.8L416 416l21.2 56.5c1.7 4.5 6 7.5 10.8 7.5s9.1-3 10.8-7.5L480 416l56.5-21.2c4.5-1.7 7.5-6 7.5-10.8s-3-9.1-7.5-10.8L480 352l-21.2-56.5c-1.7-4.5-6-7.5-10.8-7.5s-9.1 3-10.8 7.5L416 352l-56.5 21.2z"></path></svg>Activity 2: Predict, then run</h2>
+<p>On your sheet, write what you think each line will show. Then type all six lines into the box, click <strong>Run</strong> and check your predictions.</p>
+<pre class="example"><code class="language-python">print(7 + 3)
+print(20 - 8)
+print(6 * 4)
+print(10 / 2)
+print(2 + 3 * 4)
+print((2 + 3) * 4)
+</code></pre>
+<div class="runner"><textarea spellcheck="false" autocomplete="off" autocapitalize="off" rows="3" placeholder="Type the six lines here" aria-label="Python code box"></textarea><div class="bar"><button class="run">&#9654; Run</button><button class="reset">Reset</button><span class="status"></span></div><pre class="out" aria-live="polite"></pre></div>
+<div class="box tip">
+<p class="box-title">Look closely</p>
+<p>Did <code>10 / 2</code> give exactly what you expected? And why are the last two answers different?</p>
+</div>
+<details class="hint">
+<summary>Need a hint?</summary>
+<p>Think about the order you were taught to do sums in maths. What do brackets do?</p>
+</details>
+<button class="done">Mark as done</button></section><section class="card activity"><h2><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" color="#0B3C6F" aria-hidden="true" style="color:#0B3C6F" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path></svg>Activity 3: Formulas with variables</h2>
+<p>A <strong>formula</strong> works something out from other values. Store the values in variables, then use the variables in the formula.</p>
+<pre class="example"><code class="language-python">pizzas = 3
+price = 18
+people = 4
+total = pizzas * price
+each = total / people
+print(&quot;Total cost:&quot;, total)
+print(&quot;Each person pays:&quot;, each)
+</code></pre>
+<p>Type all nine lines into the box, then run it.</p>
+<div class="runner"><textarea spellcheck="false" autocomplete="off" autocapitalize="off" rows="3" placeholder="Type the pizza program here" aria-label="Python code box"></textarea><div class="bar"><button class="run">&#9654; Run</button><button class="reset">Reset</button><span class="status"></span></div><pre class="out" aria-live="polite"></pre></div>
+<p>Now change <code>people</code> to 6 and run it again.</p>
+<p>Then write your own from scratch: store a <code>length</code> and a <code>width</code>, and print the area of a rectangle.</p>
+<div class="runner"><textarea spellcheck="false" autocomplete="off" autocapitalize="off" rows="3" placeholder="Your rectangle code here" aria-label="Python code box"></textarea><div class="bar"><button class="run">&#9654; Run</button><button class="reset">Reset</button><span class="status"></span></div><pre class="out" aria-live="polite"></pre></div>
+<details class="hint">
+<summary>Need a hint?</summary>
+<p>Follow the pizza pattern: two variables to start with, a third variable that multiplies them, then a <code>print</code>.</p>
+</details>
+<button class="done">Mark as done</button></section><section class="card"><h2><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 576 512" color="#0B3C6F" aria-hidden="true" style="color:#0B3C6F" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M64 64C28.7 64 0 92.7 0 128L0 384c0 35.3 28.7 64 64 64l448 0c35.3 0 64-28.7 64-64l0-256c0-35.3-28.7-64-64-64L64 64zm16 64l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM64 240c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zm16 80l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zm80-176c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zm16 80l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM160 336c0-8.8 7.2-16 16-16l224 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-224 0c-8.8 0-16-7.2-16-16l0-32zM272 128l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM256 240c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zM368 128l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM352 240c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zM464 128l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM448 240c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zm16 80l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16z"></path></svg>Part B: Data types</h2>
+<p>Every value in Python has a <strong>data type</strong>: the kind of data it is.</p>
+<table>
+<thead>
+<tr>
+<th>Data type</th>
+<th>Examples</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>integer (<code>int</code>)</td>
+<td><code>12</code>, <code>-5</code>, <code>0</code></td>
+<td>Whole numbers</td>
+</tr>
+<tr>
+<td>float</td>
+<td><code>3.5</code>, <code>4.0</code>, <code>9.99</code></td>
+<td>Numbers with a decimal point</td>
+</tr>
+<tr>
+<td>string (<code>str</code>)</td>
+<td><code>"Hello"</code>, <code>"12"</code></td>
+<td>Text, always in quotation marks</td>
+</tr>
+</tbody>
+</table>
+</section><section class="card activity"><h2><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" color="#0B3C6F" aria-hidden="true" style="color:#0B3C6F" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></path></svg>Activity 4: What type is it?</h2>
+<p>The <code>type()</code> function tells you a value's data type. Type these four lines, run them, and write each answer on your sheet.</p>
+<pre class="example"><code class="language-python">print(type(12))
+print(type(3.5))
+print(type(&quot;12&quot;))
+print(type(&quot;Hello&quot;))
+</code></pre>
+<div class="runner"><textarea spellcheck="false" autocomplete="off" autocapitalize="off" rows="3" placeholder="Type the four lines here" aria-label="Python code box"></textarea><div class="bar"><button class="run">&#9654; Run</button><button class="reset">Reset</button><span class="status"></span></div><pre class="out" aria-live="polite"></pre></div>
+<button class="done">Mark as done</button></section><section class="card activity"><h2><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" color="#0B3C6F" aria-hidden="true" style="color:#0B3C6F" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></path></svg>Activity 5: Numbers and strings together</h2>
+<p>Predict first. Then type the lines and run them.</p>
+<pre class="example"><code class="language-python">print(5 + 5)
+print(&quot;5&quot; + &quot;5&quot;)
+print(&quot;Ha&quot; * 3)
+print(&quot;Age: &quot; + 12)
+</code></pre>
+<div class="runner"><textarea spellcheck="false" autocomplete="off" autocapitalize="off" rows="3" placeholder="Type the four lines here" aria-label="Python code box"></textarea><div class="bar"><button class="run">&#9654; Run</button><button class="reset">Reset</button><span class="status"></span></div><pre class="out" aria-live="polite"></pre></div>
+<p>The last line gives an error, because Python can't join a string and an integer with <code>+</code>. Fix it by writing <code>str(12)</code> instead of <code>12</code>.</p>
+<details class="hint">
+<summary>Need a hint?</summary>
+<p>Look for the quotation marks. A value in quotation marks is a string, even if it looks like a number.</p>
+</details>
+<button class="done">Mark as done</button></section><section class="card"><h2><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" color="#0B3C6F" aria-hidden="true" style="color:#0B3C6F" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path></svg>Part C: IF and ELSE</h2>
+<p>IF checks a <strong>condition</strong>: a true or false question. When it's true, Python runs the lines under <code>if</code>. When it's false, it runs the lines under <code>else</code>.</p>
+<p><img class="pic" src="Y08-python-practice-if-else.png" alt="A flowchart. temperature is 25. Is temperature bigger than 20? True goes to the if branch, Wear a T-shirt. False goes to the else branch, Take a jumper. Only one of the two ever runs."></p>
+</section><section class="card activity"><h2><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" color="#0B3C6F" aria-hidden="true" style="color:#0B3C6F" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M192 104.8c0-9.2-5.8-17.3-13.2-22.8C167.2 73.3 160 61.3 160 48c0-26.5 28.7-48 64-48s64 21.5 64 48c0 13.3-7.2 25.3-18.8 34c-7.4 5.5-13.2 13.6-13.2 22.8c0 12.8 10.4 23.2 23.2 23.2l56.8 0c26.5 0 48 21.5 48 48l0 56.8c0 12.8 10.4 23.2 23.2 23.2c9.2 0 17.3-5.8 22.8-13.2c8.7-11.6 20.7-18.8 34-18.8c26.5 0 48 28.7 48 64s-21.5 64-48 64c-13.3 0-25.3-7.2-34-18.8c-5.5-7.4-13.6-13.2-22.8-13.2c-12.8 0-23.2 10.4-23.2 23.2L384 464c0 26.5-21.5 48-48 48l-56.8 0c-12.8 0-23.2-10.4-23.2-23.2c0-9.2 5.8-17.3 13.2-22.8c11.6-8.7 18.8-20.7 18.8-34c0-26.5-28.7-48-64-48s-64 21.5-64 48c0 13.3 7.2 25.3 18.8 34c7.4 5.5 13.2 13.6 13.2 22.8c0 12.8-10.4 23.2-23.2 23.2L48 512c-26.5 0-48-21.5-48-48L0 343.2C0 330.4 10.4 320 23.2 320c9.2 0 17.3 5.8 22.8 13.2C54.7 344.8 66.7 352 80 352c26.5 0 48-28.7 48-64s-21.5-64-48-64c-13.3 0-25.3 7.2-34 18.8C40.5 250.2 32.4 256 23.2 256C10.4 256 0 245.6 0 232.8L0 176c0-26.5 21.5-48 48-48l120.8 0c12.8 0 23.2-10.4 23.2-23.2z"></path></svg>Activity 6: What should I wear?</h2>
+<p>Type this in carefully, then run it.</p>
+<pre class="example"><code class="language-python">temperature = 25
+if temperature &gt; 20:
+    print(&quot;Wear a T-shirt&quot;)
+else:
+    print(&quot;Take a jumper&quot;)
+</code></pre>
+<div class="runner"><textarea spellcheck="false" autocomplete="off" autocapitalize="off" rows="3" placeholder="Type the IF and ELSE code here. Press Tab for four spaces." aria-label="Python code box"></textarea><div class="bar"><button class="run">&#9654; Run</button><button class="reset">Reset</button><span class="status"></span></div><pre class="out" aria-live="polite"></pre></div>
+<p>The lines under <code>if</code> and <code>else</code> start with four spaces. Change <code>temperature</code> to 15: what happens?</p>
+<p>Now write a password checker: if the password is <code>"kiwi"</code>, print <strong>Welcome!</strong>, otherwise print <strong>Wrong password</strong>.</p>
+<div class="runner"><textarea spellcheck="false" autocomplete="off" autocapitalize="off" rows="3" placeholder="Your password checker here" aria-label="Python code box"></textarea><div class="bar"><button class="run">&#9654; Run</button><button class="reset">Reset</button><span class="status"></span></div><pre class="out" aria-live="polite"></pre></div>
+<details class="hint">
+<summary>Need a hint?</summary>
+<p>To check whether two things are the same, Python uses two equals signs, like <code>x == y</code>. One equals sign stores a value.</p>
+</details>
+<div class="box remember">
+<p class="box-title">Remember</p>
+<p>An <code>if</code> line and an <code>else</code> line both end with a colon <code>:</code>. The lines under them are indented, so Python knows which lines belong to which.</p>
+</div>
+<button class="done">Mark as done</button></section><section class="card activity"><h2><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" color="#0B3C6F" aria-hidden="true" style="color:#0B3C6F" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M256 0c53 0 96 43 96 96l0 3.6c0 15.7-12.7 28.4-28.4 28.4l-135.1 0c-15.7 0-28.4-12.7-28.4-28.4l0-3.6c0-53 43-96 96-96zM41.4 105.4c12.5-12.5 32.8-12.5 45.3 0l64 64c.7 .7 1.3 1.4 1.9 2.1c14.2-7.3 30.4-11.4 47.5-11.4l112 0c17.1 0 33.2 4.1 47.5 11.4c.6-.7 1.2-1.4 1.9-2.1l64-64c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-64 64c-.7 .7-1.4 1.3-2.1 1.9c6.2 12 10.1 25.3 11.1 39.5l64.3 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c0 24.6-5.5 47.8-15.4 68.6c2.2 1.3 4.2 2.9 6 4.8l64 64c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0l-63.1-63.1c-24.5 21.8-55.8 36.2-90.3 39.6L272 240c0-8.8-7.2-16-16-16s-16 7.2-16 16l0 239.2c-34.5-3.4-65.8-17.8-90.3-39.6L86.6 502.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l64-64c1.9-1.9 3.9-3.4 6-4.8C101.5 367.8 96 344.6 96 320l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64.3 0c1.1-14.1 5-27.5 11.1-39.5c-.7-.6-1.4-1.2-2.1-1.9l-64-64c-12.5-12.5-12.5-32.8 0-45.3z"></path></svg>Activity 7: Bug hunt</h2>
+<p>This code is already in the box, and it has three bugs. Run it, read the error, and fix one bug at a time. Keep going until it prints the right message.</p>
+<div class="runner"><textarea spellcheck="false" autocomplete="off" autocapitalize="off" rows="3" placeholder="" aria-label="Python code box">score = 12
+if score = 10
+print(&quot;You win!&quot;)
+else:
+    print(&quot;Try again&quot;)
+</textarea><div class="bar"><button class="run">&#9654; Run</button><button class="reset">Reset</button><span class="status"></span></div><pre class="out" aria-live="polite"></pre></div>
+<details class="hint">
+<summary>Stuck?</summary>
+<p>The error message tells you the line number. Compare that line with your working code in Activity 6, character by character.</p>
+</details>
+<button class="done">Mark as done</button></section><section class="card"><h2><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" color="#0B3C6F" aria-hidden="true" style="color:#0B3C6F" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 224c0 17.7 14.3 32 32 32s32-14.3 32-32c0-53 43-96 96-96l160 0 0 32c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l64-64c12.5-12.5 12.5-32.8 0-45.3l-64-64c-9.2-9.2-22.9-11.9-34.9-6.9S320 19.1 320 32l0 32L160 64C71.6 64 0 135.6 0 224zm512 64c0-17.7-14.3-32-32-32s-32 14.3-32 32c0 53-43 96-96 96l-160 0 0-32c0-12.9-7.8-24.6-19.8-29.6s-25.7-2.2-34.9 6.9l-64 64c-12.5 12.5-12.5 32.8 0 45.3l64 64c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6l0-32 160 0c88.4 0 160-71.6 160-160z"></path></svg>Part D: FOR loops</h2>
+<p>A FOR loop repeats the indented lines. <code>range(5)</code> means "do it 5 times", and <code>i</code> counts each time round.</p>
+</section><section class="card activity"><h2><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" color="#0B3C6F" aria-hidden="true" style="color:#0B3C6F" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 224c0 17.7 14.3 32 32 32s32-14.3 32-32c0-53 43-96 96-96l160 0 0 32c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l64-64c12.5-12.5 12.5-32.8 0-45.3l-64-64c-9.2-9.2-22.9-11.9-34.9-6.9S320 19.1 320 32l0 32L160 64C71.6 64 0 135.6 0 224zm512 64c0-17.7-14.3-32-32-32s-32 14.3-32 32c0 53-43 96-96 96l-160 0 0-32c0-12.9-7.8-24.6-19.8-29.6s-25.7-2.2-34.9 6.9l-64 64c-12.5 12.5-12.5 32.8 0 45.3l64 64c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6l0-32 160 0c88.4 0 160-71.6 160-160z"></path></svg>Activity 8: Loop it</h2>
+<p>Predict, then type and run each one.</p>
+<pre class="example"><code class="language-python">for i in range(3):
+    print(&quot;Hello&quot;)
+</code></pre>
+<div class="runner"><textarea spellcheck="false" autocomplete="off" autocapitalize="off" rows="3" placeholder="Loop 1" aria-label="Python code box"></textarea><div class="bar"><button class="run">&#9654; Run</button><button class="reset">Reset</button><span class="status"></span></div><pre class="out" aria-live="polite"></pre></div>
+<pre class="example"><code class="language-python">for i in range(5):
+    print(i)
+</code></pre>
+<div class="runner"><textarea spellcheck="false" autocomplete="off" autocapitalize="off" rows="3" placeholder="Loop 2" aria-label="Python code box"></textarea><div class="bar"><button class="run">&#9654; Run</button><button class="reset">Reset</button><span class="status"></span></div><pre class="out" aria-live="polite"></pre></div>
+<pre class="example"><code class="language-python">for i in range(1, 6):
+    print(i)
+</code></pre>
+<div class="runner"><textarea spellcheck="false" autocomplete="off" autocapitalize="off" rows="3" placeholder="Loop 3" aria-label="Python code box"></textarea><div class="bar"><button class="run">&#9654; Run</button><button class="reset">Reset</button><span class="status"></span></div><pre class="out" aria-live="polite"></pre></div>
+<details class="hint">
+<summary>Why doesn&#x27;t it reach 6?</summary>
+<p><code>range</code> starts at the first number and stops just before the second number.</p>
+</details>
+<p>Now try a times table. Type it, run it, then change 7 to your own number.</p>
+<pre class="example"><code class="language-python">for i in range(1, 11):
+    print(i, &quot;x 7 =&quot;, i * 7)
+</code></pre>
+<div class="runner"><textarea spellcheck="false" autocomplete="off" autocapitalize="off" rows="3" placeholder="Your times table" aria-label="Python code box"></textarea><div class="bar"><button class="run">&#9654; Run</button><button class="reset">Reset</button><span class="status"></span></div><pre class="out" aria-live="polite"></pre></div>
+<div class="box challenge">
+<p class="box-title">Challenge: finished early?</p>
+<p>Make your times table print <strong>High!</strong> after any answer bigger than 50. You need an <code>if</code> inside the loop:</p>
+<pre class="example"><code class="language-python">for i in range(1, 11):
+    answer = i * 7
+    print(i, &quot;x 7 =&quot;, answer)
+    if answer &gt; 50:
+        print(&quot;High!&quot;)
+</code></pre>
+<div class="runner"><textarea spellcheck="false" autocomplete="off" autocapitalize="off" rows="3" placeholder="Your challenge code" aria-label="Python code box"></textarea><div class="bar"><button class="run">&#9654; Run</button><button class="reset">Reset</button><span class="status"></span></div><pre class="out" aria-live="polite"></pre></div>
+<p>Now add an <code>else</code> that prints <strong>Low</strong>. Can you make it count down from 10 instead?</p>
+</div><button class="done">Mark as done</button></section></main>
+<footer class="wrap">City Impact Church School · Year 8 · Python Practice Lab</footer><script>
+(function(){
+  const key = 'ticks:' + location.pathname + ':' + document.title;
+  const saved = JSON.parse(localStorage.getItem(key) || '{}');
+  const cards = [...document.querySelectorAll('section.activity')];
+  const fill = document.querySelector('.progress .fill'), label = document.querySelector('.progress .label');
+  function update(celebrate){
+    const n = cards.filter(c => c.classList.contains('done')).length;
+    if (fill) { fill.style.width = (cards.length ? 100 * n / cards.length : 0) + '%'; label.textContent = n + ' of ' + cards.length + ' activities done'; }
+    if (celebrate && n === cards.length && n > 0) party();
+  }
+  cards.forEach((c, i) => {
+    const b = c.querySelector('button.done');
+    if (saved[i]) { c.classList.add('done'); b.textContent = '\u2714 Done!'; }
+    b.addEventListener('click', () => {
+      const on = c.classList.toggle('done');
+      b.textContent = on ? '\u2714 Done!' : 'Mark as done';
+      saved[i] = on; localStorage.setItem(key, JSON.stringify(saved));
+      update(on);
+    });
+  });
+  update(false);
+  const emojis = ['✨','🧪','🎮','🧩','🌟','💥','🎨','🧙'];
+  let ei = 0;
+  document.querySelectorAll('section.card > h2').forEach(h => {
+    const act = h.parentNode.classList.contains('activity');
+    const sp = document.createElement('span'); sp.className = 'em';
+    sp.textContent = act ? '🚀' : emojis[ei++ % emojis.length];
+    h.insertBefore(sp, h.firstChild);
+  });
+  function party(){
+    const cols = ['#FFD54F','#E23E48','#1976D2','#2E7D32','#8E24AA','#FF7043'];
+    for (let i = 0; i < 90; i++) {
+      const d = document.createElement('div'); d.className = 'party';
+      d.style.left = Math.random() * 100 + 'vw'; d.style.background = cols[i % cols.length];
+      d.style.animationDelay = Math.random() * .8 + 's'; document.body.appendChild(d);
+      setTimeout(() => d.remove(), 3600);
+    }
+    const m = document.createElement('div'); m.className = 'cheer';
+    m.innerHTML = 'Ka pai! Every activity done.<br><span style="font-size:18px;color:#333">Now try the Challenge.</span>';
+    document.body.appendChild(m); setTimeout(() => m.remove(), 3500);
+  }
+})();
+
+(function(){
+  let py = null, loading = null;
+  function getPython(status){
+    if (py) return Promise.resolve(py);
+    if (!loading) {
+      status.textContent = 'Starting Python... (the first time takes a few seconds)';
+      loading = new Promise((ok, bad) => {
+        const s = document.createElement('script');
+        s.src = '../pyodide/pyodide.js';
+        s.onload = () => loadPyodide().then(p => {
+          // input() asks with the browser's pop-up box, shows the answer in the output, and copes with Cancel
+          p.runPython(`
+import builtins
+from js import prompt as _prompt
+def _input(msg=""):
+    v = _prompt(str(msg))
+    if v is None:
+        raise EOFError("You pressed Cancel, so there was no answer. Click Run to try again.")
+    m = str(msg)
+    print(m + ("" if m == "" or m.endswith((" ", "\\n")) else " ") + v)
+    return v
+builtins.input = _input
+`);
+          py = p; ok(p); }, bad);
+        s.onerror = () => bad(new Error('blocked'));
+        document.head.appendChild(s);
+      });
+    }
+    return loading;
+  }
+  function tidy(msg){
+    // Keep only the student's part of the error, not Python's own insides.
+    const lines = msg.split('\n'); const i = lines.findIndex(l => l.includes('File "<exec>"'));
+    return (i >= 0 ? lines.slice(i) : lines.slice(-2)).join('\n').replace(/File "<exec>", /g, '').trim();
+  }
+  const words = ['Nice one!','Ka pai!','Sweet as!','Boom!','You did it!','Nailed it!','Awesome!'];
+  function praise(r){
+    const st = r.querySelector('.status'); st.className = 'status praise';
+    st.textContent = words[Math.floor(Math.random() * words.length)];
+    const b = r.querySelector('button.run').getBoundingClientRect();
+    ['⭐','✨','🌟'].forEach((e, i) => { const d = document.createElement('div'); d.className = 'stars'; d.textContent = e;
+      d.style.left = (b.left + 20 + i * 26) + 'px'; d.style.top = (b.top - 10) + 'px'; d.style.animationDelay = i * .1 + 's';
+      document.body.appendChild(d); setTimeout(() => d.remove(), 1500); });
+    setTimeout(() => { st.className = 'status'; st.textContent = ''; }, 2500);
+  }
+  const noPaste = document.body.dataset.nopaste === '1';
+  document.querySelectorAll('.runner').forEach(r => {
+    const ta = r.querySelector('textarea'), out = r.querySelector('pre.out'), status = r.querySelector('.status');
+    if (noPaste) ['paste', 'drop'].forEach(ev => ta.addEventListener(ev, e => {
+      e.preventDefault(); status.textContent = 'Pasting is switched off: type it yourself!';
+      setTimeout(() => { status.textContent = ''; }, 2500);
+    }));
+    const fit = () => { ta.style.height = 'auto'; ta.style.height = (ta.scrollHeight + 4) + 'px'; };
+    fit(); ta.addEventListener('input', fit);
+    ta.addEventListener('keydown', e => {
+      const a = ta.selectionStart, b = ta.selectionEnd;
+      if (e.key === 'Tab') { e.preventDefault(); ta.setRangeText('    ', a, b, 'end'); fit(); }
+      if (e.key === 'Enter') {
+        const line = ta.value.slice(0, a).split('\n').pop();
+        let ind = line.match(/^ */)[0]; if (/:\s*$/.test(line)) ind += '    ';
+        e.preventDefault(); ta.setRangeText('\n' + ind, a, b, 'end'); fit();
+      }
+    });
+    r.querySelector('button.reset').addEventListener('click', () => { ta.value = ta.defaultValue; fit(); out.classList.remove('show'); out.textContent = ''; });
+    r.querySelector('button.run').addEventListener('click', async () => {
+      out.classList.remove('ok','bad'); out.classList.add('show'); out.textContent = '';
+      let p;
+      try { p = await getPython(status); }
+      catch (e) { loading = null; status.textContent = ''; out.innerHTML = '<span class="hint">Python could not start on this network. Use the W3Schools editor button at the top of the page instead.</span>'; return; }
+      status.textContent = '';
+      let text = '';
+      p.setStdout({ batched: s => { text += s + '\n'; } });
+      const ns = p.globals.get('dict')();
+      try { await p.runPythonAsync(ta.value, { globals: ns }); out.textContent = text || '(nothing was printed)'; out.classList.add('ok'); praise(r); }
+      catch (e) {
+        out.textContent = text; out.classList.add('bad');
+        const sp = document.createElement('span'); sp.className = 'err'; sp.textContent = tidy(String(e.message || e)); out.appendChild(sp);
+        const h = document.createElement('span'); h.className = 'hint'; h.textContent = '\nAn error is a clue: read the line number, fix it and run again.'; out.appendChild(h);
+      } finally { ns.destroy(); }
+    });
+  });
+})();
+</script></body></html>
