@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en-NZ"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Pizza Order Lab</title>
+<style>:root{--dark:#8F2D0C;--tint:#FFF0E4;--accent1:#CF3A52;--accent2:#1D5FD1}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;font-size:18px;line-height:1.55;color:#1a1a1a;background:#fff}
+header{background:var(--tint);border-bottom:4px solid var(--dark)}
+header .wrap{display:flex;align-items:center;gap:20px;padding:18px 20px}
+header img.logo{height:58px}
+header h1{margin:0;font-size:32px;color:var(--dark)}
+header p{margin:2px 0 0;color:#404040;font-size:16px}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+main{padding:10px 0 40px}
+h2{background:var(--tint);color:var(--dark);font-size:22px;padding:8px 14px;border-left:6px solid var(--dark);border-radius:4px;margin:34px 0 14px;display:flex;align-items:center;gap:10px}
+h2 svg{width:22px;height:22px;flex:none}
+h3{color:var(--dark);font-size:19px;margin:22px 0 8px}
+a{color:var(--accent2)}
+strong{color:var(--dark)}
+code{font-family:Consolas,"Courier New",monospace;font-size:16px;background:#f3f3f3;padding:1px 5px;border-radius:3px}
+pre{background:#f6f8fa;border:1px solid #d0d7de;border-left:5px solid var(--accent2);border-radius:6px;padding:12px 16px;overflow-x:auto}
+pre code{background:none;padding:0;font-size:17px;line-height:1.5}
+table{border-collapse:collapse;margin:12px 0;width:100%}
+th,td{border:1px solid #bbb;padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--tint);color:var(--dark)}
+img.pic{max-width:100%;height:auto;display:block;margin:14px auto;border-radius:6px}
+iframe.embed{width:100%;height:860px;border:2px solid var(--dark);border-radius:10px;display:block;margin:14px 0 6px;background:#fff}
+p.embed-link{font-size:15px;margin:0 0 10px}
+.box{border-radius:8px;padding:12px 18px;margin:18px 0;border:2px solid var(--dark)}
+.box .box-title{font-weight:bold;color:var(--dark);margin:0 0 6px;font-size:19px}
+.box.remember,.box.tip,.box.note{border:none;border-left:7px solid var(--dark);background:var(--tint)}
+.box.challenge{border:2px dashed var(--accent1)}
+.box.challenge .box-title{color:var(--accent1)}
+.box.important,.box.warning{border:none;border-left:7px solid var(--accent1);background:#fff4f4}
+.box.aims{border:2px solid var(--dark)}
+a.button{display:inline-block;background:var(--dark);color:#fff;text-decoration:none;font-weight:bold;padding:12px 22px;border-radius:8px;font-size:19px}
+a.button:hover{opacity:.9}
+footer{border-top:1px solid #ccc;color:#555;font-size:14px;padding:14px 0 30px}
+.empty{text-align:center;padding:80px 20px;color:#404040}
+.empty h2{display:block;background:none;border:none;font-size:28px}
+details.hint{background:#FFF8E1;border:2px solid #F2C94C;border-radius:8px;margin:14px 0;padding:0 16px}
+details.hint summary{cursor:pointer;font-weight:bold;color:#7A5B00;padding:10px 0;list-style:none}
+details.hint summary::-webkit-details-marker{display:none}
+details.hint summary:before{content:"\1F4A1  "}
+details.hint[open]{padding-bottom:8px}
+details.hint[open] summary{border-bottom:1px dashed #F2C94C;margin-bottom:8px}
+
+body{background:var(--tint)}
+header{background:linear-gradient(120deg,var(--dark) 0%,var(--accent2) 100%);border:none;color:#fff;position:relative;overflow:hidden}
+header:after{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+header .wrap{padding:26px 20px 22px}
+header img.logo{background:#fff;border-radius:10px;padding:6px;height:66px}
+header h1{color:#fff;font-size:38px}
+header p{color:#e8eef7;font-size:17px}
+.progress{max-width:860px;margin:0 auto;padding:0 20px 18px;position:relative;z-index:1}
+.progress .track{background:rgba(255,255,255,.25);border-radius:20px;height:16px;overflow:hidden}
+.progress .fill{background:#FFD54F;height:100%;width:0;border-radius:20px;transition:width .5s}
+.progress .label{color:#fff;font-size:15px;margin-top:5px;font-weight:bold}
+main{padding-top:18px}
+section.card{background:#fff;border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.08);padding:4px 24px 18px;margin:0 0 22px;border-top:6px solid var(--accent2)}
+section.card.activity{border-top-color:var(--dark)}
+section.card.done{border-top-color:#2E7D32}
+section.card > h2{background:none;border:none;padding:0;margin:18px 0 10px;font-size:25px}
+section.card > h2 svg{width:24px;height:24px;background:var(--tint);padding:9px;border-radius:50%;box-sizing:content-box}
+button.done{margin-top:12px;background:#fff;border:2px solid #2E7D32;color:#2E7D32;font-weight:bold;font-size:17px;padding:8px 18px;border-radius:22px;cursor:pointer}
+button.done:hover{background:#EAF6EC}
+section.done button.done{background:#2E7D32;color:#fff}
+.intro{font-size:20px}
+header{background:linear-gradient(120deg,var(--dark) 0%,var(--accent2) 55%,var(--accent1) 100%)}
+header:before{content:"";position:absolute;left:0;right:0;bottom:0;height:7px;background:repeating-linear-gradient(90deg,#FFD54F 0 40px,#FF7043 40px 80px,#4DD0E1 80px 120px,#81C784 120px 160px,#BA68C8 160px 200px)}
+header h1:after{content:" \1F680";display:inline-block;animation:bob 2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px) rotate(8deg)}}
+.progress .fill{background:repeating-linear-gradient(45deg,#FFD54F 0 12px,#FFB300 12px 24px)}
+.progress .label:after{content:" \2B50"}
+section.card{transition:transform .15s,box-shadow .15s}
+section.card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.14)}
+section.card:nth-of-type(5n+1){border-top-color:#FF7043}
+section.card:nth-of-type(5n+2){border-top-color:#26C6DA}
+section.card:nth-of-type(5n+3){border-top-color:#AB47BC}
+section.card:nth-of-type(5n+4){border-top-color:#FFCA28}
+section.card:nth-of-type(5n+5){border-top-color:#66BB6A}
+section.card.done{border-top-color:#2E7D32!important;background:linear-gradient(#F1FAF2,#fff 90px)}
+section.card > h2 .em{font-size:30px;margin-right:2px;display:inline-block}
+section.card:hover > h2 .em{animation:wiggle .5s}
+@keyframes wiggle{25%{transform:rotate(-18deg) scale(1.2)}75%{transform:rotate(18deg) scale(1.2)}}
+.box{box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.box.remember,.box.tip{background:linear-gradient(90deg,var(--tint),#fff)}
+.box.remember .box-title:before{content:"\1F9E0  "}
+.box.tip .box-title:before{content:"\1F50D  "}
+.box.aims .box-title:before{content:"\1F3AF  "}
+.box.challenge{background:#FFF8E1;border-color:#FF7043}
+.box.challenge .box-title:before{content:"\1F525  "}
+.box.challenge .box-title{color:#E64A19}
+button.done{transition:transform .15s}
+button.done:hover{transform:scale(1.07) rotate(-1deg)}
+section.done button.done{animation:pop .4s}
+@keyframes pop{50%{transform:scale(1.25)}}
+.runner{box-shadow:0 3px 0 var(--accent2);transition:transform .15s}
+.runner:focus-within{transform:scale(1.01);border-color:#FF7043;box-shadow:0 3px 0 #FF7043}
+.runner button.run{font-size:17px;padding:8px 20px;box-shadow:0 3px 0 #027a4e;transition:transform .1s}
+.runner button.run:hover{transform:translateY(-2px)}
+.runner button.run:active{transform:translateY(2px);box-shadow:none}
+.runner pre.out.ok{border-left:6px solid #4CAF50}
+.runner pre.out.bad{border-left:6px solid #FF5252}
+.runner .praise{margin-left:auto;font-weight:bold;color:#2E7D32;animation:pop .5s}
+pre.example{background:#F3F0FF;border-left-color:#AB47BC}
+th{background:linear-gradient(90deg,var(--tint),#fff)}
+.stars{position:fixed;font-size:28px;z-index:99;pointer-events:none;animation:rise 1.2s ease-out forwards}
+@keyframes rise{to{transform:translateY(-90px) scale(1.6);opacity:0}}
+.party{position:fixed;top:-20px;width:12px;height:18px;z-index:99;animation:fall 2.6s linear forwards;border-radius:3px}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg)}}
+.cheer{position:fixed;left:50%;top:30%;transform:translateX(-50%);background:#fff;border:4px solid #2E7D32;border-radius:16px;padding:20px 30px;font-size:24px;font-weight:bold;color:#2E7D32;z-index:100;box-shadow:0 6px 30px rgba(0,0,0,.2);text-align:center}
+
+.runner{margin:14px 0;border:2px solid var(--accent2);border-radius:10px;overflow:hidden;background:#fff}
+.runner textarea{display:block;width:100%;border:none;resize:vertical;font-family:Consolas,"Courier New",monospace;font-size:17px;line-height:1.5;padding:12px 16px;background:#f6f8fa;color:#1a1a1a;tab-size:4;outline:none;min-height:60px}
+.runner .bar{display:flex;gap:10px;align-items:center;padding:8px 12px;background:var(--tint);border-top:1px solid #d0d7de}
+.runner button{font-size:16px;font-weight:bold;border-radius:8px;padding:7px 16px;cursor:pointer;border:2px solid var(--dark)}
+.runner button.run{background:#04AA6D;border-color:#04AA6D;color:#fff}
+.runner button.reset{background:#fff;color:var(--dark)}
+.runner .status{font-size:14px;color:#555}
+.runner pre.out{margin:0;border:none;border-radius:0;background:#1E1E1E;color:#E8E8E8;font-family:Consolas,"Courier New",monospace;font-size:17px;padding:12px 16px;min-height:44px;white-space:pre-wrap;display:none}
+.runner pre.out.show{display:block}
+.runner pre.out .err{color:#FF8A80}
+.runner pre.out .hint{color:#FFD54F}
+pre.example{user-select:none;-webkit-user-select:none}
+pre.example:before{content:"Read this, then type it in the box below";display:block;font:bold 13px Arial,sans-serif;color:var(--accent2);margin-bottom:6px;letter-spacing:.3px;text-transform:uppercase}
+.runner textarea::placeholder{color:#8a8f98;font-style:italic}
+</style></head>
+<body data-nopaste="1"><header><div class="wrap"><img class="logo" src="../school-logo.png" alt="City Impact Church School logo">
+<div><h1>Pizza Order Lab</h1><p>Year 7 Computing</p></div></div><div class="progress"><div class="track"><div class="fill"></div></div><div class="label"></div></div></header>
+<main class="wrap"><div class="intro"><p>Today your programs will ask questions and wait for your answers. Read the grey code, type it into the white box underneath, and click <strong>Run</strong>. When the program asks a question, a small box pops up: type your answer and press OK. Copy and paste is switched off, so your fingers do the learning. Tick each activity when you finish it.</p>
+<div class="box aims">
+<p class="box-title">We are learning to</p>
+<ul>
+<li>ask the user a question with <code>input()</code> and store the answer in a variable</li>
+<li>turn text into a number with <code>int()</code></li>
+<li>build a pizza order program that makes a decision</li>
+</ul>
+</div>
+</div><section class="card"><h2>Warm-up: Code in order</h2>
+<p>Before you write any code, warm up your brain. Each puzzle shows what the program should print, but the lines are jumbled up. Drag the lines into the right order, then click <strong>Check my code</strong>. You get more stars for getting it right first time.</p>
+<iframe class="embed" src="Y07-parsons-puzzle-python-basics.html" title="puzzle"></iframe>
+<p class="embed-link"><a href="Y07-parsons-puzzle-python-basics.html" target="_blank" rel="noopener">Open the puzzle in its own tab</a></p>
+
+</section><section class="card activity"><h2>Activity 1: Say hello</h2>
+<p><code>input()</code> asks a question and waits. Whatever you type is stored in the variable.</p>
+<pre class="example"><code class="language-python">name = input(&quot;What is your name? &quot;)
+print(&quot;Hello,&quot;, name)
+</code></pre>
+<div class="runner"><textarea spellcheck="false" autocomplete="off" autocapitalize="off" rows="3" placeholder="Type the two lines above here, then click Run" aria-label="Python code box"></textarea><div class="bar"><button class="run">&#9654; Run</button><button class="reset">Reset</button><span class="status"></span></div><pre class="out" aria-live="polite"></pre></div>
+<p>Run it again and type a different name. Then change the question to ask for your favourite food, and print a sentence about it.</p>
+<details class="hint">
+<summary>Run button not working?</summary>
+<p>Use the Programiz online editor instead. It opens in a new tab and it can ask for input too:</p>
+<p><a class="button" href="https://www.programiz.com/python-programming/online-compiler/" target="_blank" rel="noopener">Open the Python editor</a></p>
+</details>
+<div class="box remember">
+<p class="box-title">Remember</p>
+<p>The words inside the brackets are the question. Put a space before the closing quotation mark so your answer doesn't stick to the question.</p>
+</div>
+<button class="done">Mark as done</button></section><section class="card activity"><h2>Activity 2: Text or number?</h2>
+<p>Predict first: what will this show if you type 100 and then 200?</p>
+<pre class="example"><code class="language-python">a = input(&quot;First number? &quot;)
+b = input(&quot;Second number? &quot;)
+print(a + b)
+</code></pre>
+<div class="runner"><textarea spellcheck="false" autocomplete="off" autocapitalize="off" rows="3" placeholder="Type the three lines above here, then click Run" aria-label="Python code box"></textarea><div class="bar"><button class="run">&#9654; Run</button><button class="reset">Reset</button><span class="status"></span></div><pre class="out" aria-live="polite"></pre></div>
+<p>That's not an addition! <code>input()</code> always gives back <strong>text</strong>, so <code>+</code> joins the two pieces. <code>int()</code> turns text into a whole number. Change your program so it adds the numbers.</p>
+<pre class="example"><code class="language-python">a = int(input(&quot;First number? &quot;))
+</code></pre>
+<div class="runner"><textarea spellcheck="false" autocomplete="off" autocapitalize="off" rows="3" placeholder="Fix your program here, so 100 and 200 show 300" aria-label="Python code box"></textarea><div class="bar"><button class="run">&#9654; Run</button><button class="reset">Reset</button><span class="status"></span></div><pre class="out" aria-live="polite"></pre></div>
+<details class="hint">
+<summary>Need a hint?</summary>
+<p>You need <code>int(...)</code> around both <code>input(...)</code> lines. Watch the brackets: every opening bracket needs a closing one.</p>
+</details>
+<button class="done">Mark as done</button></section><section class="card activity"><h2>Activity 3: The pizza order</h2>
+<p>Time to build the pizza shop. The program asks how many pizzas, then works out the total. Pizzas cost $18 each.</p>
+<pre class="example"><code class="language-python">pizzas = int(input(&quot;How many pizzas? &quot;))
+price = 18
+total = pizzas * price
+print(&quot;Total: $&quot; + str(total))
+</code></pre>
+<div class="runner"><textarea spellcheck="false" autocomplete="off" autocapitalize="off" rows="3" placeholder="Type the pizza program here" aria-label="Python code box"></textarea><div class="bar"><button class="run">&#9654; Run</button><button class="reset">Reset</button><span class="status"></span></div><pre class="out" aria-live="polite"></pre></div>
+<p><code>str()</code> turns a number back into text, so it can be joined to the words with <code>+</code>. Run it with 3 pizzas. What is the total? Try 5 pizzas.</p>
+<details class="hint">
+<summary>Need a hint?</summary>
+<p>Follow the four steps: ask, set the price, work out the total, show it.</p>
+</details>
+<button class="done">Mark as done</button></section><section class="card activity"><h2>Activity 4: Share the cost</h2>
+<p>Add to your pizza program: ask how many people are sharing, then print how much each person pays. This is a new program, so type it all again.</p>
+<div class="runner"><textarea spellcheck="false" autocomplete="off" autocapitalize="off" rows="3" placeholder="Pizza program with sharing. Ask for pizzas and people." aria-label="Python code box"></textarea><div class="bar"><button class="run">&#9654; Run</button><button class="reset">Reset</button><span class="status"></span></div><pre class="out" aria-live="polite"></pre></div>
+<details class="hint">
+<summary>Need a hint?</summary>
+<p>Ask for <code>people</code> the same way as <code>pizzas</code>, with <code>int(input(...))</code>. Then <code>each = total / people</code>. The answer can have a decimal point, and that's fine.</p>
+</details>
+<button class="done">Mark as done</button></section><section class="card activity"><h2>Activity 5: Free garlic bread</h2>
+<p>Orders over $50 get free garlic bread. Add an IF to the end of your pizza program.</p>
+<pre class="example"><code class="language-python">if total &gt; 50:
+    print(&quot;Free garlic bread!&quot;)
+else:
+    print(&quot;No garlic bread&quot;)
+</code></pre>
+<div class="runner"><textarea spellcheck="false" autocomplete="off" autocapitalize="off" rows="3" placeholder="Type your pizza program, then add the IF and ELSE" aria-label="Python code box"></textarea><div class="bar"><button class="run">&#9654; Run</button><button class="reset">Reset</button><span class="status"></span></div><pre class="out" aria-live="polite"></pre></div>
+<p>Try 2 pizzas and then 3 pizzas. How many pizzas do you need to order to get the garlic bread?</p>
+<details class="hint">
+<summary>Need a hint?</summary>
+<p>The <code>if</code> and <code>else</code> lines end with a colon <code>:</code>, and the lines under them start with four spaces.</p>
+</details>
+<button class="done">Mark as done</button></section><section class="card activity"><h2>Activity 6: Bug hunt</h2>
+<p>This code is already in the box, and it has two bugs. Run it, read the error, and fix one bug at a time. When it runs, type 3: the total should be 54.</p>
+<div class="runner"><textarea spellcheck="false" autocomplete="off" autocapitalize="off" rows="3" placeholder="" aria-label="Python code box">pizzas = input(&quot;How many pizzas? &quot;)
+total = pizzas * 18
+print(&quot;Total: $&quot; + str(total)
+</textarea><div class="bar"><button class="run">&#9654; Run</button><button class="reset">Reset</button><span class="status"></span></div><pre class="out" aria-live="polite"></pre></div>
+<details class="hint">
+<summary>Stuck?</summary>
+<p>The first error is about a missing bracket. Fix it and run again. The second bug gives no error, just a very strange total. What did you learn about <code>input()</code> in Activity 2?</p>
+</details>
+<button class="done">Mark as done</button></section><section class="card"><h2>Challenge: finished early?</h2>
+<div class="box challenge">
+<p class="box-title">Make a full pizza order</p>
+<p>Write a program that:
+1. asks for the customer's <strong>name</strong>,
+2. asks how many pizzas they want,
+3. prints a receipt like <code>Thanks James! Your total is $54</code>,
+4. gives a 10% discount if they order 4 pizzas or more. Hint: <code>total = total * 0.9</code>.</p>
+<div class="runner"><textarea spellcheck="false" autocomplete="off" autocapitalize="off" rows="3" placeholder="Your challenge code" aria-label="Python code box"></textarea><div class="bar"><button class="run">&#9654; Run</button><button class="reset">Reset</button><span class="status"></span></div><pre class="out" aria-live="polite"></pre></div>
+</div></section></main>
+<footer class="wrap">City Impact Church School · Year 7 · Pizza Order Lab</footer><script>
+(function(){
+  const key = 'ticks:' + location.pathname + ':' + document.title;
+  const saved = JSON.parse(localStorage.getItem(key) || '{}');
+  const cards = [...document.querySelectorAll('section.activity')];
+  const fill = document.querySelector('.progress .fill'), label = document.querySelector('.progress .label');
+  function update(celebrate){
+    const n = cards.filter(c => c.classList.contains('done')).length;
+    if (fill) { fill.style.width = (cards.length ? 100 * n / cards.length : 0) + '%'; label.textContent = n + ' of ' + cards.length + ' activities done'; }
+    if (celebrate && n === cards.length && n > 0) party();
+  }
+  cards.forEach((c, i) => {
+    const b = c.querySelector('button.done');
+    if (saved[i]) { c.classList.add('done'); b.textContent = '\u2714 Done!'; }
+    b.addEventListener('click', () => {
+      const on = c.classList.toggle('done');
+      b.textContent = on ? '\u2714 Done!' : 'Mark as done';
+      saved[i] = on; localStorage.setItem(key, JSON.stringify(saved));
+      update(on);
+    });
+  });
+  update(false);
+  const emojis = ['✨','🧪','🎮','🧩','🌟','💥','🎨','🧙'];
+  let ei = 0;
+  document.querySelectorAll('section.card > h2').forEach(h => {
+    const act = h.parentNode.classList.contains('activity');
+    const sp = document.createElement('span'); sp.className = 'em';
+    sp.textContent = act ? '🚀' : emojis[ei++ % emojis.length];
+    h.insertBefore(sp, h.firstChild);
+  });
+  function party(){
+    const cols = ['#FFD54F','#E23E48','#1976D2','#2E7D32','#8E24AA','#FF7043'];
+    for (let i = 0; i < 90; i++) {
+      const d = document.createElement('div'); d.className = 'party';
+      d.style.left = Math.random() * 100 + 'vw'; d.style.background = cols[i % cols.length];
+      d.style.animationDelay = Math.random() * .8 + 's'; document.body.appendChild(d);
+      setTimeout(() => d.remove(), 3600);
+    }
+    const m = document.createElement('div'); m.className = 'cheer';
+    m.innerHTML = 'Ka pai! Every activity done.<br><span style="font-size:18px;color:#333">Now try the Challenge.</span>';
+    document.body.appendChild(m); setTimeout(() => m.remove(), 3500);
+  }
+})();
+
+(function(){
+  let py = null, loading = null;
+  function getPython(status){
+    if (py) return Promise.resolve(py);
+    if (!loading) {
+      status.textContent = 'Starting Python... (the first time takes a few seconds)';
+      loading = new Promise((ok, bad) => {
+        const s = document.createElement('script');
+        s.src = '../pyodide/pyodide.js';
+        s.onload = () => loadPyodide().then(p => {
+          // input() asks with the browser's pop-up box, shows the answer in the output, and copes with Cancel
+          p.runPython(`
+import builtins
+from js import prompt as _prompt
+def _input(msg=""):
+    v = _prompt(str(msg))
+    if v is None:
+        raise EOFError("You pressed Cancel, so there was no answer. Click Run to try again.")
+    m = str(msg)
+    print(m + ("" if m == "" or m.endswith((" ", "\\n")) else " ") + v)
+    return v
+builtins.input = _input
+`);
+          py = p; ok(p); }, bad);
+        s.onerror = () => bad(new Error('blocked'));
+        document.head.appendChild(s);
+      });
+    }
+    return loading;
+  }
+  function tidy(msg){
+    // Keep only the student's part of the error, not Python's own insides.
+    const lines = msg.split('\n'); const i = lines.findIndex(l => l.includes('File "<exec>"'));
+    return (i >= 0 ? lines.slice(i) : lines.slice(-2)).join('\n').replace(/File "<exec>", /g, '').trim();
+  }
+  const words = ['Nice one!','Ka pai!','Sweet as!','Boom!','You did it!','Nailed it!','Awesome!'];
+  function praise(r){
+    const st = r.querySelector('.status'); st.className = 'status praise';
+    st.textContent = words[Math.floor(Math.random() * words.length)];
+    const b = r.querySelector('button.run').getBoundingClientRect();
+    ['⭐','✨','🌟'].forEach((e, i) => { const d = document.createElement('div'); d.className = 'stars'; d.textContent = e;
+      d.style.left = (b.left + 20 + i * 26) + 'px'; d.style.top = (b.top - 10) + 'px'; d.style.animationDelay = i * .1 + 's';
+      document.body.appendChild(d); setTimeout(() => d.remove(), 1500); });
+    setTimeout(() => { st.className = 'status'; st.textContent = ''; }, 2500);
+  }
+  const noPaste = document.body.dataset.nopaste === '1';
+  document.querySelectorAll('.runner').forEach(r => {
+    const ta = r.querySelector('textarea'), out = r.querySelector('pre.out'), status = r.querySelector('.status');
+    if (noPaste) ['paste', 'drop'].forEach(ev => ta.addEventListener(ev, e => {
+      e.preventDefault(); status.textContent = 'Pasting is switched off: type it yourself!';
+      setTimeout(() => { status.textContent = ''; }, 2500);
+    }));
+    const fit = () => { ta.style.height = 'auto'; ta.style.height = (ta.scrollHeight + 4) + 'px'; };
+    fit(); ta.addEventListener('input', fit);
+    ta.addEventListener('keydown', e => {
+      const a = ta.selectionStart, b = ta.selectionEnd;
+      if (e.key === 'Tab') { e.preventDefault(); ta.setRangeText('    ', a, b, 'end'); fit(); }
+      if (e.key === 'Enter') {
+        const line = ta.value.slice(0, a).split('\n').pop();
+        let ind = line.match(/^ */)[0]; if (/:\s*$/.test(line)) ind += '    ';
+        e.preventDefault(); ta.setRangeText('\n' + ind, a, b, 'end'); fit();
+      }
+    });
+    r.querySelector('button.reset').addEventListener('click', () => { ta.value = ta.defaultValue; fit(); out.classList.remove('show'); out.textContent = ''; });
+    r.querySelector('button.run').addEventListener('click', async () => {
+      out.classList.remove('ok','bad'); out.classList.add('show'); out.textContent = '';
+      let p;
+      try { p = await getPython(status); }
+      catch (e) { loading = null; status.textContent = ''; out.innerHTML = '<span class="hint">Python could not start on this network. Use the W3Schools editor button at the top of the page instead.</span>'; return; }
+      status.textContent = '';
+      let text = '';
+      p.setStdout({ batched: s => { text += s + '\n'; } });
+      const ns = p.globals.get('dict')();
+      try { await p.runPythonAsync(ta.value, { globals: ns }); out.textContent = text || '(nothing was printed)'; out.classList.add('ok'); praise(r); }
+      catch (e) {
+        out.textContent = text; out.classList.add('bad');
+        const sp = document.createElement('span'); sp.className = 'err'; sp.textContent = tidy(String(e.message || e)); out.appendChild(sp);
+        const h = document.createElement('span'); h.className = 'hint'; h.textContent = '\nAn error is a clue: read the line number, fix it and run again.'; out.appendChild(h);
+      } finally { ns.destroy(); }
+    });
+  });
+})();
+</script></body></html>
